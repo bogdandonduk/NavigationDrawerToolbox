@@ -1,0 +1,3 @@
+package bogdandonduk.navigationdrawertoolboxlib.anatomy.header.base
+
+open class NavigationDrawerHeader
