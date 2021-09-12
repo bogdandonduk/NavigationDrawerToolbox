@@ -3,7 +3,7 @@
   
   Android library based on the enhanced builder pattern that simplifies creation of powerful and beautiful navigation drawer layouts.
   
-  ![Example](https://github.com/bogdandonduk/AppManualToolbox/blob/master/device-2021-09-12-205834.png)
+  ![Example](https://github.com/bogdandonduk/NavigationDrawerToolbox/blob/master/device-2021-09-13-001700.png)
   
 ## Include in your project  
 **Gradle dependency**  
