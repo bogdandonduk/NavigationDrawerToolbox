@@ -180,7 +180,7 @@ class NavigationDrawerBuilder internal constructor(context: Context, key: String
         }
     }
 
-    fun dismissNavigationDrawerPopupMenuByKey(navigationDrawerKey: String, popupMenuKeyProviderAction: (allKeys: MutableList<String>) -> String) {
+    fun dismissNavigationDrawerPopupMenuByKey(popupMenuKeyProviderAction: (allKeys: MutableList<String>) -> String) {
         NavigationDrawerToolbox.getSavedNavigationDrawerModel(model.key)?.navigationDrawerFragment?.let {
             it.dismissPopupMenuByKey(popupMenuKeyProviderAction.invoke(
                 mutableListOf<String>().apply {
