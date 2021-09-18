@@ -200,6 +200,16 @@ class NavigationDrawerBuilder internal constructor(context: Context, key: String
 
     fun getBackgroundView() = model.navigationDrawerFragment?.viewBinding?.root
 
+    fun geHeaderRootView() = model.navigationDrawerFragment?.headerLayoutRoot
+
+    fun getMenuListView() = model.navigationDrawerFragment?.menuList
+
+    fun getSettingsButtonView() = model.navigationDrawerFragment?.settingsButtonView
+
+    fun getLanguageToggleButtonView() = model.navigationDrawerFragment?.languageToggleButtonView
+
+    fun getThemeToggleButtonView() = model.navigationDrawerFragment?.themeToggleButtonView
+
     fun getThemeToggleButtonViewGroup() = model.navigationDrawerFragment?.viewBinding?.fragmentNavigationDrawerSettingsQuickAccessPanelThemeToggleButtonConstraintLayout
 
     fun getThemeToggleButtonIconImageView() = model.navigationDrawerFragment?.viewBinding?.fragmentNavigationDrawerSettingsQuickAccessPanelThemeToggleButtonIconImageView
