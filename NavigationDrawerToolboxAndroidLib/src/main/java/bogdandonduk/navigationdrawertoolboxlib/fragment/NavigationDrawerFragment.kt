@@ -7,6 +7,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
+import androidx.recyclerview.widget.RecyclerView
 import bogdandonduk.commontoolboxlib.CommonToolbox
 import bogdandonduk.listtoolboxlib.ListToolbox
 import bogdandonduk.navigationdrawertoolboxlib.NavigationDrawerConfig
@@ -50,6 +51,20 @@ internal class NavigationDrawerFragment : BaseViewBindingHandlerFragment<Fragmen
 
     var headerLayoutRoot: View? = null
 
+    var rootView: View? = null
+
+    var menuList: RecyclerView? = null
+
+    var settingsButtonView: View? = null
+    var themeToggleButtonView: View? = null
+    var languageToggleButtonView: View? = null
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        NavigationDrawerToolbox.getSavedNavigationDrawerModel(key)?.navigationDrawerFragment = this
+    }
+
     override fun onDestroy() {
         super.onDestroy()
 
@@ -90,6 +105,8 @@ internal class NavigationDrawerFragment : BaseViewBindingHandlerFragment<Fragmen
     fun draw() {
         NavigationDrawerToolbox.getSavedNavigationDrawerModel(key)?.let {
             viewBinding.run {
+                rootView = root
+
                 rippleColor = CommonToolbox.getRippleColorByLuminance(requireActivity(), if(it.genericColors.backgroundDrawable != null) {
                     root.background = it.genericColors.backgroundDrawable
 
@@ -195,6 +212,8 @@ internal class NavigationDrawerFragment : BaseViewBindingHandlerFragment<Fragmen
                             getInitializedViewModel(viewModelStore).menuListStateKey?.run {
                                 ListToolbox.restoreSavedListState(this, viewBinding.fragmentNavigationDrawerMenuRecyclerView)
                             }
+
+                            menuList = this
                         }
                     }
                 }
@@ -237,6 +256,8 @@ internal class NavigationDrawerFragment : BaseViewBindingHandlerFragment<Fragmen
 
                             true
                         }
+
+                        settingsButtonView = this
                     }
 
                 /** LANGUAGE TOGGLE BUTTON */
@@ -303,6 +324,8 @@ internal class NavigationDrawerFragment : BaseViewBindingHandlerFragment<Fragmen
 
                             true
                         }
+
+                        languageToggleButtonView = this
                     }
 
                 /** THEME TOGGLE BUTTON */
@@ -355,6 +378,8 @@ internal class NavigationDrawerFragment : BaseViewBindingHandlerFragment<Fragmen
 
                             true
                         }
+
+                        themeToggleButtonView = this
                     }
 
                 /** DIVIDER LINES */

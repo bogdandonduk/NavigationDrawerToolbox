@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
+import bogdandonduk.navigationdrawertoolboxlib.base.Button
 import bogdandonduk.uilanguagestoolboxlib.UILanguagesAppManager
 import bogdandonduk.uilanguagestoolboxlib.UILanguagesFlagsHolder
 
