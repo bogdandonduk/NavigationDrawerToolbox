@@ -126,6 +126,10 @@ class NavigationDrawerBuilder internal constructor(context: Context, key: String
         NavigationDrawerToolbox.saveNavigationDrawerModel(model.key, model, replaceIfPresent)
     }
 
+    fun isLoaded() = model.navigationDrawerFragment != null
+
+    fun isLoaded(fragmentManager: FragmentManager, containerViewId: Int) = model.navigationDrawerFragment != null && fragmentManager.findFragmentById(containerViewId) != null
+
     fun load(
         fragmentManager: FragmentManager,
         @IdRes containerViewId: Int,
@@ -139,12 +143,7 @@ class NavigationDrawerBuilder internal constructor(context: Context, key: String
 
         save()
 
-        val navigationFragment = NavigationDrawerFragment().apply {
-            arguments = bundleOf(
-                NavigationDrawerConfig.KEY_MODEL_KEY to model.key,
-                NavigationDrawerConfig.KEY_SAVE_INFO to model.saveModel
-            )
-        }
+        val navigationFragment = NavigationDrawerFragment()
 
         try {
             fragmentManager.beginTransaction().apply {

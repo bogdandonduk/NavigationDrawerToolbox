@@ -28,7 +28,10 @@ class NavigationDrawerFragmentViewModel(var key: String) : ViewModel(), PopupMen
     var menuListStateKey: String? = null
 
     override fun onCleared() {
-        NavigationDrawerToolbox.deleteNavigationDrawerInfo(key)
+        NavigationDrawerToolbox.getSavedNavigationDrawerModel(key)?.run {
+            if(!saveModel)
+                NavigationDrawerToolbox.deleteNavigationDrawerInfo(key)
+        }
 
         PopupMenuToolbox.dismissPopupMenu(popupMenuBuilders[PopupMenuConfig.KeysExtensionVocabulary.KEY_POPUP_MENU_LANGUAGE_TOGGLE]!!.getKey())
         PopupMenuToolbox.dismissPopupMenu(popupMenuBuilders[PopupMenuConfig.KeysExtensionVocabulary.KEY_POPUP_MENU_THEME_TOGGLE]!!.getKey())

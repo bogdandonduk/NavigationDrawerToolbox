@@ -30,6 +30,7 @@ import bogdandonduk.tooltiptoolboxlib.TooltipToolbox
 import bogdandonduk.tooltiptoolboxlib.TooltipsHandler
 import bogdandonduk.uilanguagestoolboxlib.UILanguagesAppManager
 import bogdandonduk.viewdatabindingwrapperslib.BaseViewBindingHandlerFragment
+import bogdandonduk.viewmodelwrapperslib.automatic.SingleAutomaticInitializationWithInitializationViewModelHandler
 import bogdandonduk.viewmodelwrapperslib.automatic.SingleAutomaticInitializationWithInstanceViewModelHandler
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
@@ -37,13 +38,17 @@ import top.defaults.drawabletoolbox.DrawableBuilder
 
 internal class NavigationDrawerFragment : BaseViewBindingHandlerFragment<FragmentNavigationDrawerBinding>({ layoutInflater: LayoutInflater, viewGroup: ViewGroup? ->
     FragmentNavigationDrawerBinding.inflate(layoutInflater, viewGroup, false)
-}), SingleAutomaticInitializationWithInstanceViewModelHandler<NavigationDrawerFragmentViewModel>,
+}),
+    SingleAutomaticInitializationWithInitializationViewModelHandler<NavigationDrawerFragmentViewModel>,
     NavigationDrawerConfig.Callbacks,
     TooltipsHandler,
     PopupMenusHandler {
 
     lateinit var key: String
-    override lateinit var viewModelNewInstance: NavigationDrawerFragmentViewModel
+
+    override var viewModelInitialization = {
+        NavigationDrawerFragmentViewModel(key)
+    }
 
     var rippleColor: Int? = null
 
@@ -59,25 +64,20 @@ internal class NavigationDrawerFragment : BaseViewBindingHandlerFragment<Fragmen
     var themeToggleButtonView: View? = null
     var languageToggleButtonView: View? = null
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        NavigationDrawerToolbox.getSavedNavigationDrawerModel(key)?.navigationDrawerFragment = this
-    }
-
     override fun onDestroy() {
         super.onDestroy()
 
         getInitializedViewModel(viewModelStore).menuListStateKey = ListToolbox.saveListState(this, recyclerView = viewBinding.fragmentNavigationDrawerMenuRecyclerView)
+
+        NavigationDrawerToolbox.getSavedNavigationDrawerModel(key)?.navigationDrawerFragment = null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         key = tag!!
-        attachToModel()
 
-        viewModelNewInstance = NavigationDrawerFragmentViewModel(key)
+        NavigationDrawerToolbox.getSavedNavigationDrawerModel(key)?.navigationDrawerFragment = this
 
         getInitializedViewModel(viewModelStore)
     }
@@ -96,10 +96,6 @@ internal class NavigationDrawerFragment : BaseViewBindingHandlerFragment<Fragmen
         getInitializedViewModel(viewModelStore)
 
         draw()
-    }
-
-    private fun attachToModel() {
-        NavigationDrawerToolbox.getSavedNavigationDrawerModel(key)?.navigationDrawerFragment = this
     }
 
     fun draw() {
