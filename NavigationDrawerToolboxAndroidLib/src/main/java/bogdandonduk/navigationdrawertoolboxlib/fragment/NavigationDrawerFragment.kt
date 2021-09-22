@@ -89,6 +89,8 @@ internal class NavigationDrawerFragment : BaseViewBindingHandlerFragment<Fragmen
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
 
+        CommonToolbox.hideSystemUI(requireActivity().window)
+
         return viewBinding.root
     }
 
