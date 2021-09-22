@@ -89,7 +89,7 @@ internal class NavigationDrawerFragment : BaseViewBindingHandlerFragment<Fragmen
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
 
-        CommonToolbox.hideSystemUI(requireActivity().window)
+        requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
 
         return viewBinding.root
     }
