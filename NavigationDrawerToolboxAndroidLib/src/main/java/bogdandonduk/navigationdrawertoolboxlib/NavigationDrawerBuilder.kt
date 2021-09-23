@@ -5,6 +5,7 @@ import android.graphics.Color
 import androidx.annotation.IdRes
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
+import bogdandonduk.navigationdrawertoolboxlib.anatomy.callbacks.NavigationDrawerFragmentCallbacks
 import bogdandonduk.navigationdrawertoolboxlib.anatomy.genericcolors.GenericColors
 import bogdandonduk.navigationdrawertoolboxlib.anatomy.genericcolors.GenericColorsBuilder
 import bogdandonduk.navigationdrawertoolboxlib.anatomy.header.base.NavigationDrawerHeader
@@ -37,7 +38,9 @@ class NavigationDrawerBuilder internal constructor(context: Context, key: String
 
                 languageToggleButton = languageToggleButton,
 
-                themeToggleButton = themeToggleButton
+                themeToggleButton = themeToggleButton,
+
+                fragmentCallbacks = fragmentCallbacks
             ).also {
                 it.navigationDrawerFragment = navigationDrawerFragment
 
@@ -63,7 +66,9 @@ class NavigationDrawerBuilder internal constructor(context: Context, key: String
 
                 languageToggleButton = LanguageToggleButtonBuilder(context).build(),
 
-                themeToggleButton = ThemeToggleButtonBuilder().build()
+                themeToggleButton = ThemeToggleButtonBuilder().build(),
+
+                fragmentCallbacks = null
             )
         }
     }
@@ -119,6 +124,12 @@ class NavigationDrawerBuilder internal constructor(context: Context, key: String
     fun removeHostActivityOnTouchAction() = this.apply {
         model.hostActivityOnTouchAction = null
     }
+
+    inline fun setFragmentCallbacks(modification: (oldCallbacks: NavigationDrawerFragmentCallbacks?) -> NavigationDrawerFragmentCallbacks?) = this.apply {
+        model.fragmentCallbacks = modification.invoke(model.fragmentCallbacks)
+    }
+
+    fun getFragmentCallbacks() = model.fragmentCallbacks
 
     fun getKey() = model.key
 

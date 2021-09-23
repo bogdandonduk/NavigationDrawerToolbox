@@ -1,6 +1,7 @@
 package bogdandonduk.navigationdrawertoolboxlib
 
 import androidx.annotation.ColorInt
+import bogdandonduk.navigationdrawertoolboxlib.anatomy.callbacks.NavigationDrawerFragmentCallbacks
 import bogdandonduk.navigationdrawertoolboxlib.anatomy.genericcolors.GenericColors
 import bogdandonduk.navigationdrawertoolboxlib.anatomy.header.base.NavigationDrawerHeader
 import bogdandonduk.navigationdrawertoolboxlib.anatomy.languagetogglebutton.LanguageToggleButton
@@ -24,7 +25,9 @@ internal class NavigationDrawerModel(
 
     var languageToggleButton: LanguageToggleButton?,
 
-    var themeToggleButton: ThemeToggleButton?
+    var themeToggleButton: ThemeToggleButton?,
+
+    var fragmentCallbacks: NavigationDrawerFragmentCallbacks?
 ) {
     var navigationDrawerFragment: NavigationDrawerFragment? = null
 

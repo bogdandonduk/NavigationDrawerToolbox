@@ -49,5 +49,5 @@ object NavigationDrawerToolbox {
 
     fun buildThemeToggleButton() = ThemeToggleButtonBuilder()
 
-    fun getCallbacks(key: String) = savedNavigationDrawerModels[key]?.navigationDrawerFragment as NavigationDrawerConfig.Callbacks
+    fun getDrawerCallbacks(key: String) = savedNavigationDrawerModels[key]?.navigationDrawerFragment as NavigationDrawerConfig.Callbacks
 }

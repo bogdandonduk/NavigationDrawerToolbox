@@ -72,6 +72,12 @@ internal class NavigationDrawerFragment : BaseViewBindingHandlerFragment<Fragmen
         NavigationDrawerToolbox.getSavedNavigationDrawerModel(key)?.navigationDrawerFragment = null
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        NavigationDrawerToolbox.getSavedNavigationDrawerModel(key)?.fragmentCallbacks?.onDestroyViewAction?.invoke(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -82,19 +88,7 @@ internal class NavigationDrawerFragment : BaseViewBindingHandlerFragment<Fragmen
         getInitializedViewModel(viewModelStore)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        super.onCreateView(inflater, container, savedInstanceState)
-
-        return viewBinding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        getInitializedViewModel(viewModelStore)
-
         draw()
     }
 
@@ -396,6 +390,8 @@ internal class NavigationDrawerFragment : BaseViewBindingHandlerFragment<Fragmen
                     fragmentNavigationDrawerSettingsQuickAccessPanelSettingsButtonConstraintLayout
                 )
             }
+
+            it.fragmentCallbacks?.onViewCreatedAction?.invoke(this)
         }
     }
 
