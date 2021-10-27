@@ -84,8 +84,6 @@ internal class NavigationDrawerFragment : BaseViewBindingHandlerFragment<Fragmen
         key = tag!!
 
         NavigationDrawerToolbox.getSavedNavigationDrawerModel(key)?.navigationDrawerFragment = this
-
-        getInitializedViewModel(viewModelStore)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
